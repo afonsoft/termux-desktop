@@ -1,13 +1,5 @@
 TEMUX DESKTOP xfce4 <br />
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Maintained%3F-Yes-green?style=for-the-badge">
-  <img src="https://img.shields.io/github/license/adi1090x/termux-desktop?style=for-the-badge">
-  <img src="https://img.shields.io/github/issues/adi1090x/termux-desktop?color=violet&style=for-the-badge">
-  <img src="https://img.shields.io/github/forks/adi1090x/termux-desktop?color=teal&style=for-the-badge">
-  <img src="https://img.shields.io/github/stars/adi1090x/termux-desktop?style=for-the-badge">
-</p>
-
 Alright, Lets just get this straight, these are just some **dotfiles** & **scripts**, which will help you to setup a graphical environment in **termux**. I've tried to make it *as easy as possible* to setup a beautiful ***linux desktop on your android device*** with termux, So follow the steps and you'll end up making it look like this - <br />
 
 
@@ -128,88 +120,6 @@ Termux
 Now launch it. You will be prompted for `password` that you entered during installation. After entering password, you'll be headed directly to this desktop - <br />
 
 ![desktop](./previews/desk_1.png) <br />
-
-### First Impression
-
-Let's take a look at following installed programs you'll get here - 
-
-|File Manager|Text Editor/IDE|
-|--|--|
-|![img](./previews/desk_2.png)|![img](./previews/desk_3.png)|
-
-|Terminal Emulator|Web Browser|
-|--|--|
-|![img](./previews/desk_4.png)|![img](./previews/desk_5.png)|
-
-|Openbox Menu|Many CLI based Programs|
-|--|--|
-|![img](./previews/desk_6.png)|![img](./previews/desk_7.png)|
-
-|vim & htop|ranger & calcurse|mutt & elinks|mpd & ncmpcpp|
-|--|--|--|--|
-|![img](./previews/desk_8.png)|![img](./previews/desk_9.png)|![img](./previews/desk_10.png)|![img](./previews/desk_11.png)|
-
-Rofi Application launcher and Applets - 
-
-|App Launcher|Music Player|
-|--|--|
-|![img](./previews/rofi_1.png)|![img](./previews/rofi_2.png)|
-
-|Battery Status|Exit Menu|Network Info|
-|--|--|--|
-|![img](./previews/rofi_3.png)|![img](./previews/rofi_5.png)|![img](./previews/rofi_4.png)|
-
-### Styles
-
-There are total *Eight different styles/themes* available in this setup. To change style, `Right click on desktop > Preferences > Change Style` and select the one you want to apply.
-
-|Default|Beach|Forest|Grid|
-|--|--|--|--|
-|![img](./previews/style_1.png)|![img](./previews/style_2.png)|![img](./previews/style_3.png)|![img](./previews/style_4.png)|
-
-|Manhattan|Slime|Spark|Wave|
-|--|--|--|--|
-|![img](./previews/style_5.png)|![img](./previews/style_6.png)|![img](./previews/style_7.png)|![img](./previews/style_8.png)|
-
-### Applications of `Termux Desktop`
-
-Well, These are some ideas or things you can do with termux desktop. From Learning coding to Penetration testing, Chatting over IRC to Browsing web and Downloading file, Playing classic retro games to run Windows from 90s. 
-
-- Learn and practice you coding skill without having a laptop
-
-|Python|Bash|
-|--|--|
-|![img](./previews/app_1.png)|![img](./previews/app_2.png)|
-
-- Chatting, Web Browsing and Downloading files
-
-|Hexchat & Pidgin|Netsurf & Uget|Browsing Wiki|
-|--|--|--|
-|![img](./previews/app_3.png)|![img](./previews/app_4.png)|![img](./previews/app_5.png)|
-
-- Penetration testing and Learn cyber security stuff
-
-> I'm not doing anything **illegal** or sponsoring any kind of **Hacking and Cracking**. *Termux is a powerful tool, use it with responsibilities.* <br />
-
-|Metasploit - Sherlock - Socialfish - Zphisher - Sqlmap|
-|--|
-|![img](./previews/app_6.png)|
-
-- Play classic retro games or Run Microsoft Windows from 90s with `Dosbox`
-
-|Turbo C++, Windows 1 and Windows 3|Duke and Blue Brothers|
-|--|--|
-|![img](./previews/app_7.png)|![img](./previews/app_8.png)|
-
-|Mario and Pacman|Prince of Persia (both)|
-|--|--|
-|![img](./previews/app_9.png)|![img](./previews/app_10.png)|
-
-|Wolfenstein and Turrican2|SuperKarts and Spiderman|
-|--|--|
-|![img](./previews/app_11.png)|![img](./previews/app_12.png)|
-
-You'll probably get the idea of possible things you can do with Termux and how Termux Desktop makes it more easy. 
 
 ### Keybindings
 

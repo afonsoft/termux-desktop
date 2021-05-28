@@ -81,6 +81,16 @@ setup_base() {
 	done
 	reset_color
 }
+## Install ZSH
+install_zsh () {
+	{ echo ${ORANGE}" [*] Installing ZSH..."${CYAN}; echo; }
+	if [[ -f $PREFIX/bin/zsh ]]; then
+		{ echo ${GREEN}" [*] ZSH is already Installed!"; echo; }
+	else
+		{ pkg update -y; pkg install -y zsh; }
+		(type -p zsh &> /dev/null) && { echo; echo ${GREEN}" [*] Succesfully Installed!"; echo; } || { echo; echo ${RED}" [!] Error Occured, ZSH is not installed."; echo; reset_color; exit 1; }
+	fi
+}
 
 ## Setup OMZ and Termux Configs
 setup_omz() {
@@ -100,6 +110,7 @@ setup_omz() {
 	{ reset_color; git clone https://github.com/robbyrussell/oh-my-zsh.git --depth 1 $HOME/.oh-my-zsh; }
 	cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
 	sed -i -e 's/ZSH_THEME=.*/ZSH_THEME="aditya"/g' $HOME/.zshrc
+	sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' $HOME/.zshrc
 	sed -i -e 's|# export PATH=.*|export PATH=$HOME/.local/bin:$PATH|g' $HOME/.zshrc
 	# ZSH theme
 	cat > $HOME/.oh-my-zsh/custom/themes/aditya.zsh-theme <<- _EOF_
@@ -154,29 +165,9 @@ setup_omz() {
 		mkdir $HOME/.termux
 	fi
 	# copy font
-	cp $(pwd)/files/.fonts/icons/dejavu-nerd-font.ttf $HOME/.termux/font.ttf
+	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
 	# color-scheme
-	cat > $HOME/.termux/colors.properties <<- _EOF_
-		background 		: #263238
-		foreground 		: #eceff1
-
-		color0  			: #263238
-		color8  			: #37474f
-		color1  			: #ff9800
-		color9  			: #ffa74d
-		color2  			: #8bc34a
-		color10 			: #9ccc65
-		color3  			: #ffc107
-		color11 			: #ffa000
-		color4  			: #03a9f4
-		color12 			: #81d4fa
-		color5  			: #e91e63
-		color13 			: #ad1457
-		color6  			: #009688
-		color14 			: #26a69a
-		color7  			: #cfd8dc
-		color15 			: #eceff1
-	_EOF_
+	cp $(pwd)/files/colors.properties $HOME/.termux/colors.properties
 	# button config
 	cat > $HOME/.termux/termux.properties <<- _EOF_
 		extra-keys = [ \\
@@ -293,6 +284,7 @@ post_msg() {
 install_td() {
 	banner
 	setup_base
+	install_zsh
 	setup_omz
 	setup_config
 	setup_vnc
