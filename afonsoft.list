@@ -5,3 +5,4 @@ deb https://its-pointless.github.io/files/24 termux extras
 deb https://dl.bintray.com/grimler/game-packages-24 games stable
 deb https://yadominjinta.github.io/files termux extras
 deb https://dl.bintray.com/termux/termux-packages-24 stable main
+deb https://termux.holehan.org/ termux extras

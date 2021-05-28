@@ -58,7 +58,7 @@ _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-
 		geany git gtk2 gtk3 htop-legacy imagemagick jq leafpad man mpc mpd mutt ncmpcpp ripgrep \
 		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi librsvg \
 		startup-notification termux-api thunar tigervnc vim wget xarchiver xbitmaps xcompmgr \
-		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh nodejs yarn build-essential)
+		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh nodejs yarn build-essential bash-completion)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
@@ -276,7 +276,7 @@ setup_launcher() {
 		    fi
 		else
 		    echo -e "\\n[*] Starting VNC Server..."
-		    vncserver −depth 32 −geometry 1366x768
+		    vncserver
 		fi
 	_EOF_
 	if [[ -f "$file" ]]; then
