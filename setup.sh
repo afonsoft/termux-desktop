@@ -56,7 +56,7 @@ usage() {
 ## Update, X11-repo, Program Installation
 _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon \
 		geany git gtk2 gtk3 htop-legacy imagemagick jq leafpad man mpc mpd mutt ncmpcpp ripgrep \
-		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi autocutsel \
+		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi \
 		startup-notification termux-api thunar tigervnc vim wget xarchiver xbitmaps xcompmgr \
 		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh nodejs yarn build-essential)
 
@@ -222,7 +222,7 @@ setup_vnc() {
 		export XKL_XMODMAP_DISABLE=1
 		xrdb $HOME/.Xresources
 		vncconfig -nowin &
-		autocutsel -fork
+		# autocutsel -fork
 		# Launch xfce4 Window Manager.
 		startxfce4 &
 		
