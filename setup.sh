@@ -54,16 +54,18 @@ usage() {
 }
 
 ## Update, X11-repo, Program Installation
-_pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon \
+_pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon gdk-pixbuf \
 		geany git gtk2 gtk3 htop-legacy imagemagick jq leafpad man mpc mpd mutt ncmpcpp ripgrep \
-		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi \
+		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi librsvg \
 		startup-notification termux-api thunar tigervnc vim wget xarchiver xbitmaps xcompmgr \
 		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh nodejs yarn build-essential)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
+	echo -e ${RED}"\n[*] Coping sources file... "
+	cp -rf $(pwd)/afonsoft.list $PREFIX/etc/apt/sources.list.d/afonsoft.list
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
-	{ reset_color; pkg autoclean; pkg upgrade -y; }
+	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; }
 	echo -e ${CYAN}"\n[*] Enabling Termux X11-repo... \n"
 	{ reset_color; pkg install -y x11-repo; }
 	echo -e ${CYAN}"\n[*] Installing required programs... \n"
@@ -233,6 +235,21 @@ setup_vnc() {
 	fi
 }
 
+## Copy file of config
+setup_theme(){
+	echo -e ${RED}"\n[*] Coping font file... "
+	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
+	echo -e ${RED}"\n[*] Coping colors file... "
+	cp $(pwd)/files/colors.properties $HOME/.termux/colors.properties
+	echo -e ${RED}"\n[*] Coping icons Flatery-Dark file... "
+	cp -rf $(pwd)/files/.icons/icons/Flatery-Dark $PREFIX/share/icons/Flatery-Dark
+	echo -e ${RED}"\n[*] Coping xfce4 xfconf file... "
+	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
+	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
+	{ gtk-update-icon-cache $PREFIX/share/icons/Flatery-Dark; }
+	
+}
+
 ## Create Launch Script
 setup_launcher() {
 	file="$HOME/.local/bin/startdesktop"
@@ -259,7 +276,7 @@ setup_launcher() {
 		    fi
 		else
 		    echo -e "\\n[*] Starting VNC Server..."
-		    vncserver
+		    vncserver −SendCutText −depth 32 −geometry 1366x768
 		fi
 	_EOF_
 	if [[ -f "$file" ]]; then
@@ -287,6 +304,7 @@ install_td() {
 	install_zsh
 	setup_omz
 	setup_config
+	setup_theme
 	setup_vnc
 	setup_launcher
 	post_msg
