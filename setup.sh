@@ -169,7 +169,7 @@ setup_omz() {
 	# copy font
 	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
 	# color-scheme
-	cp $(pwd)/files/colors.properties $HOME/.termux/colors.properties
+	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
 	# button config
 	cat > $HOME/.termux/termux.properties <<- _EOF_
 		extra-keys = [ \\
@@ -240,9 +240,9 @@ setup_theme(){
 	echo -e ${RED}"\n[*] Coping font file... "
 	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
 	echo -e ${RED}"\n[*] Coping colors file... "
-	cp $(pwd)/files/colors.properties $HOME/.termux/colors.properties
+	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
 	echo -e ${RED}"\n[*] Coping icons Flatery-Dark file... "
-	cp -rf $(pwd)/files/.icons/icons/Flatery-Dark $PREFIX/share/icons/Flatery-Dark
+	cp -rf $(pwd)/files/.icons/Flatery-Dark $PREFIX/share/icons/Flatery-Dark
 	echo -e ${RED}"\n[*] Coping xfce4 xfconf file... "
 	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
 	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
@@ -276,7 +276,7 @@ setup_launcher() {
 		    fi
 		else
 		    echo -e "\\n[*] Starting VNC Server..."
-		    vncserver −SendCutText −depth 32 −geometry 1366x768
+		    vncserver −depth 32 −geometry 1366x768
 		fi
 	_EOF_
 	if [[ -f "$file" ]]; then
