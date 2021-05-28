@@ -42,6 +42,7 @@ banner() {
 		${RED}│${GREEN}░░░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░░░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀░░░░${RED}│
 		${RED}└──────────────────────────────────────────────────────────┘
 		${BLUE}By : Aditya Shakya // @adi1090x
+		${BLUE}Mod : Afonso Nogueira // @afonsoft
 	EOF
 }
 
