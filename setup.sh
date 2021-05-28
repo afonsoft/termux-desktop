@@ -48,16 +48,16 @@ banner() {
 ## Show usages
 usage() {
 	banner
-	echo -e ${ORANGE}"\nInstall GUI (Openbox Desktop) on Termux"
+	echo -e ${ORANGE}"\nInstall GUI (xfce4 Desktop) on Termux"
 	echo -e ${ORANGE}"Usages : $(basename $0) --install | --uninstall \n"
 }
 
 ## Update, X11-repo, Program Installation
 _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon \
 		geany git gtk2 gtk3 htop-legacy imagemagick jq leafpad man mpc mpd mutt ncmpcpp \
-		ncurses-utils neofetch netsurf obconf openbox openssl-tool polybar ranger rofi \
+		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi autocutsel \
 		startup-notification termux-api thunar tigervnc vim wget xarchiver xbitmaps xcompmgr \
-		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh)
+		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh nodejs yarn build-essential)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
@@ -225,9 +225,15 @@ setup_vnc() {
 		#!/data/data/com.termux/files/usr/bin/bash
 		## This file is executed during VNC server
 		## startup.
-
-		# Launch Openbox Window Manager.
-		openbox-session &
+		unset SESSION_MANAGER
+		unset DBUS_SESSION_BUS_ADDRESS
+		export XKL_XMODMAP_DISABLE=1
+		xrdb $HOME/.Xresources
+		vncconfig -nowin&
+		autocutsel -fork
+		# Launch xfce4 Window Manager.
+		startxfce4 &
+		
 	_EOF_
 	if [[ $(pidof Xvnc) ]]; then
 		    echo -e ${ORANGE}"[*] Server Is Running..."

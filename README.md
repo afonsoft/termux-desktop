@@ -1,4 +1,4 @@
-![logo](./previews/logo.png) <br />
+TEMUX DESKTOP xfce4 <br />
 
 <p align="center">
   <img src="https://img.shields.io/badge/Maintained%3F-Yes-green?style=for-the-badge">
@@ -10,9 +10,6 @@
 
 Alright, Lets just get this straight, these are just some **dotfiles** & **scripts**, which will help you to setup a graphical environment in **termux**. I've tried to make it *as easy as possible* to setup a beautiful ***linux desktop on your android device*** with termux, So follow the steps and you'll end up making it look like this - <br />
 
-|Openbox WM|Another Style|
-|--|--|
-|![desktop](./previews/main_1.png)|![desktop](./previews/main_2.png)|
 
 Lets start from the beginning... <br />
 
@@ -50,7 +47,7 @@ pkg upgrade && pkg install git
 
 - Clone this repository
 ```
-git clone --depth=1 https://github.com/adi1090x/termux-desktop.git
+git clone --depth=1 https://github.com/afonsoft/termux-desktop.git
 ```
 
 > **Warning** : I'm assuming that you're doing this on a fresh termux install. If not, I'll suggest you to do so. However the `setup.sh` script backup every file it replace, It's still recommended that you manually backup your files in order to avoid conflicts. <br />
