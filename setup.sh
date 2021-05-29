@@ -260,16 +260,17 @@ setup_vnc() {
 
 ## Copy file of config
 setup_theme(){
-	echo -e ${RED}"\n[*] Coping font file... "
+echo -e ${RED}"\n[*] Setup theme file... "
+	echo -e ${CYAN}"\n[*] Coping font file... "
 	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
-	echo -e ${RED}"\n[*] Coping colors file... "
+	echo -e ${CYAN}"\n[*] Coping colors file... "
 	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
-	echo -e ${RED}"\n[*] Coping icons Flatery-Dark file... "
+	echo -e ${CYAN}"\n[*] Coping icons Flatery-Dark file... "
 	cp -rf $(pwd)/files/.icons/Flatery-Dark $PREFIX/share/icons/Flatery-Dark
-	echo -e ${RED}"\n[*] Coping xfce4 xfconf file... "
+	echo -e ${CYAN}"\n[*] Coping xfce4 xfconf file... "
 	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
 	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
-	echo -e ${RED}"\n[*] download icons file... "
+	echo -e ${CYAN}"\n[*] download icons file... "
 	{ wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.icons" sh; }
 	cp -rf $(pwd)/music $PREFIX/bin
 	{ ln -s $HOME/storage/music $HOME/Music; }
@@ -325,22 +326,22 @@ post_msg() {
 ## Install adb
 install_adb() {
 	echo -e ${RED}"\n[*] install ADB file... "
-	{ wget https://github.com/MasterDevX/Termux-ADB/raw/master/InstallTools.sh -q; bash InstallTools.sh; rm InstallTools.sh;}
+	{ curl https://github.com/MasterDevX/Termux-ADB/raw/master/InstallTools.sh -o InstallTools.sh; bash InstallTools.sh; rm InstallTools.sh;}
 }
 
 ## Install source
 install_source() {	
+	echo -e ${RED}"\n[*] Configure sources... "
 	echo -e ${CYAN}"\n[*] Coping sources file... "
 	{ mkdir -p $PREFIX/etc/apt/sources.list.d; }
-	cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list
-	cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list
-	cp -rf $(pwd)/sources/others.list $PREFIX/etc/apt/sources.list.d/others.list
+##	cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list
+##	cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list
+##	cp -rf $(pwd)/sources/others.list $PREFIX/etc/apt/sources.list.d/others.list
 	echo -e ${CYAN}"\n[*] install source key file... "
 	{ curl https://termux.holehan.org/holehan.key -o holehan.key; apt-key add holehan.key; rm holehan.key; }
 	{ curl wget https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key; apt-key add hax4us.key; rm hax4us.key; }
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; }
-	post_msg
 }
 
 ## Install Termux Desktop
@@ -360,7 +361,8 @@ install_td() {
 
 compile_td() {
 	banner
-	echo -e ${RED}"\n[*] Update pkg Termux Desktop..."
+	echo -e ${RED}"\n[*] Compile config..."
+	echo -e ${GREEN}"\n[*] Update pkg Termux Desktop..."
 	{ 	reset_color; 
 		pkg autoclean; 
 		pkg update; 
@@ -369,7 +371,7 @@ compile_td() {
 		cpan install XML::Parser;
 		cpan install XML::LibXML;
 	}
-	echo -e ${RED}"\n[*] Download, Make and install  intltool-0.51.0..."
+	echo -e ${CYAN}"\n[*] Download, Make and install  intltool-0.51.0..."
 	{	wget https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz -q;
 		tar -xvf -xvf intltool-0.51.0.tar.gz;
 		cd intltool-0.51.0/;
@@ -379,7 +381,7 @@ compile_td() {
 		make install;
 		cd ..;
 	}
-	echo -e ${RED}"\n[*] Download, Make and install xfce4-dev-tools-4.16.0..."
+	echo -e ${CYAN}"\n[*] Download, Make and install xfce4-dev-tools-4.16.0..."
 	{	wget https://archive.xfce.org/src/xfce/xfce4-dev-tools/4.16/xfce4-dev-tools-4.16.0.tar.bz2 -q;
 		tar -xvf xfce4-dev-tools-4.16.0.tar.bz2;
 		cd xfce4-dev-tools-4.16.0/;
@@ -389,10 +391,10 @@ compile_td() {
 		make install;
 		cd ..;
 	}
-	echo -e ${RED}"\n[*] install and update pip..."
+	echo -e ${CYAN}"\n[*] install and update pip..."
 	{ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py; python get-pip.py; python -m pip install --upgrade pip ;}
-	echo -e ${RED}"\n[*] install and update catfish..."
-	{ python -m pip install --upgrade catfish;	}
+	echo -e ${CYAN}"\n[*] install and update catfish..."
+	{ python -m pip install --upgrade catfish; post_msg; }
 }
 
 ## Uninstall Termux Desktop
