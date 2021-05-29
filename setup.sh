@@ -188,7 +188,6 @@ setup_omz() {
 	if [[ ! -d "$HOME/Video" ]]; then
 		mkdir $HOME/Video 
 	fi
-	ln -s $HOME/storage/music $HOME/Music 
 	# copy font
 	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
 	# color-scheme
@@ -272,7 +271,7 @@ setup_theme(){
 	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
 	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
 	cp -rf $(pwd)/music $PREFIX/bin
-	{ gtk-update-icon-cache $HOME/.icons/Flatery-Dark; }
+	{ gtk-update-icon-cache $HOME/.icons/Flatery-Dark; ln -s $HOME/storage/music $HOME/Music; }
 }
 
 ## Create Launch Script
@@ -329,9 +328,9 @@ install_adb() {
 }
 
 ## Install source
-install_source() {
-	{mkdir -p $PREFIX/etc/apt/sources.list.d;}
+install_source() {	
 	echo -e ${CYAN}"\n[*] Coping sources file... "
+	{ mkdir -p $PREFIX/etc/apt/sources.list.d; }
 	cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list
 	cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list
 	echo -e ${CYAN}"\n[*] install source key file... "
