@@ -340,8 +340,9 @@ install_source() {
 	echo -e ${CYAN}"\n[*] install source key file... "
 	{ curl https://termux.holehan.org/holehan.key -o holehan.key; apt-key add holehan.key; rm holehan.key; }
 	{ curl wget https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key; apt-key add hax4us.key; rm hax4us.key; }
+	{ apt-key adv --keyserver pgp.mit.edu --recv A46BE53C; }
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
-	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; }
+	{ reset_color; apt update; pkg update; pkg upgrade -y; }
 }
 
 ## Install Termux Desktop
