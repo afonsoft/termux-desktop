@@ -156,10 +156,10 @@ setup_omz() {
 		# SSH Server Connections
 
 		# linux (Arch)
-		#alias arch='ssh UNAME@IP -i ~/.ssh/id_rsa.DEVICE'
+		alias arch='ssh UNAME@IP -i ~/.ssh/id_rsa.DEVICE'
 
 		# linux sftp (Arch)
-		#alias archfs='sftp -i ~/.ssh/id_rsa.DEVICE UNAME@IP'
+		alias archfs='sftp -i ~/.ssh/id_rsa.DEVICE UNAME@IP'
 	_EOF_
 
 	# configuring termux
@@ -247,7 +247,7 @@ setup_theme(){
 	echo -e ${RED}"\n[*] Coping xfce4 xfconf file... "
 	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
 	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
-	{ gtk-update-icon-cache $PREFIX/share/icons/Flatery-Dark; }
+	{ gtk-update-icon-cache $HOME/.icons/Flatery-Dark; }
 	
 }
 
