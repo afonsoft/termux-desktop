@@ -59,12 +59,12 @@ _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-
 		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi \
 		startup-notification termux-api thunar tigervnc vim wget xarchiver xbitmaps xcompmgr \
 		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh \
-		librsvg nodejs yarn build-essential bash-completion gdk-pixbuf ripgrep)
+		librsvg nodejs yarn build-essential bash-completion gdk-pixbuf ripgrep xfce4-taskmanager \
+		dosbox vim-gtk python-tkinter htop loqui the-powder-toy galculator xorg-xhost mpv ristretto \
+		xfce4-whiskermenu-plugin xfce4-clipman-plugin xarchiver geany-plugins mtpaint hexchat recordmydesktop)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
-	echo -e ${RED}"\n[*] Coping sources file... "
-	cp -rf $(pwd)/afonsoft.list $PREFIX/etc/apt/sources.list.d/afonsoft.list
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; }
 	echo -e ${CYAN}"\n[*] Enabling Termux X11-repo... \n"
@@ -79,7 +79,7 @@ setup_base() {
 			continue
 		else
 			echo -e ${MAGENTA}"\n[!] Error installing $package, Terminating...\n"
-			{ reset_color; exit 1; }
+			{ reset_color;  pkg autoclean; pkg update; pkg upgrade -y; exit 1; }
 		fi
 	done
 	reset_color
@@ -167,6 +167,25 @@ setup_omz() {
 	if [[ ! -d "$HOME/.termux" ]]; then
 		mkdir $HOME/.termux
 	fi
+	if [[ ! -d "$HOME/Downloads" ]]; then
+		mkdir $HOME/Downloads 
+	fi
+	if [[ ! -d "$HOME/Templates" ]]; then
+		mkdir $HOME/Templates 
+	fi
+	if [[ ! -d "$HOME/Public" ]]; then
+		mkdir $HOME/Public
+	fi
+	if [[ ! -d "$HOME/Documents" ]]; then
+		mkdir $HOME/Documents 
+	fi
+	if [[ ! -d "$HOME/Pictures" ]]; then
+		mkdir $HOME/Pictures 
+	fi
+	if [[ ! -d "$HOME/Video" ]]; then
+		mkdir $HOME/Video 
+	fi
+	ln -s $HOME/storage/music $HOME/Music 
 	# copy font
 	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
 	# color-scheme
@@ -226,9 +245,11 @@ setup_vnc() {
 		xrdb $HOME/.Xresources
 		vncconfig -nowin &
 		# autocutsel -fork
-		# Launch xfce4 Window Manager.
+		# Launch x-session-manager
 		startxfce4 &
-		
+		# Launch xhost service to run proot-distro apps
+		xhost +localhost
+		xhost +
 	_EOF_
 	if [[ $(pidof Xvnc) ]]; then
 		    echo -e ${ORANGE}"[*] Server Is Running..."
@@ -247,8 +268,8 @@ setup_theme(){
 	echo -e ${RED}"\n[*] Coping xfce4 xfconf file... "
 	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
 	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
+	cp -rf $(pwd)/music $PREFIX/bin
 	{ gtk-update-icon-cache $HOME/.icons/Flatery-Dark; }
-	
 }
 
 ## Create Launch Script
@@ -298,6 +319,25 @@ post_msg() {
 	{ reset_color; exit 0; }
 }
 
+## Install adb
+install_adb() {
+	echo -e ${RED}"\n[*] install ADB file... "
+	{ wget https://github.com/MasterDevX/Termux-ADB/raw/master/InstallTools.sh -q; bash InstallTools.sh; rm InstallTools.sh;}
+}
+
+## Install source
+install_source() {
+	{mkdir -p $PREFIX/etc/apt/sources.list.d;}
+	echo -e ${CYAN}"\n[*] Coping sources file... "
+	cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list
+	cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list
+	echo -e ${CYAN}"\n[*] install source key file... "
+	{ curl https://termux.holehan.org/holehan.key -o holehan.key; apt-key add holehan.key; rm holehan.key; }
+	{ curl wget https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key; apt-key add hax4us.key; rm hax4us.key; }
+	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
+	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; compile-install.sh; }
+}
+
 ## Install Termux Desktop
 install_td() {
 	banner
@@ -306,6 +346,8 @@ install_td() {
 	setup_omz
 	setup_config
 	setup_theme
+	install_adb
+	install_source
 	setup_vnc
 	setup_launcher
 	post_msg

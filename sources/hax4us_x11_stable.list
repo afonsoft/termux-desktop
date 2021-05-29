@@ -1,0 +1,2 @@
+deb https://hax4us.github.io/termux-x/ x11-stable main
+deb https://hax4us.github.io/termux-x/ pentesting main

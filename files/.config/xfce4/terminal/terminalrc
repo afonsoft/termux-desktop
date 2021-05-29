@@ -1,12 +1,12 @@
 [Configuration]
-FontName=Iosevka Custom 9
+BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBellUrgent=FALSE
 MiscBordersDefault=TRUE
 MiscCursorBlinks=FALSE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
-MiscDefaultGeometry=80x22
+MiscDefaultGeometry=75x22
 MiscInheritGeometry=FALSE
 MiscMenubarDefault=TRUE
 MiscMouseAutohide=FALSE
@@ -23,14 +23,8 @@ MiscCopyOnSelect=FALSE
 MiscShowRelaunchDialog=TRUE
 MiscRewrapOnResize=TRUE
 MiscUseShiftArrowsToScroll=FALSE
-MiscSlimTabs=TRUE
+MiscSlimTabs=FALSE
 MiscNewTabAdjacent=FALSE
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=TRUE
-ColorPalette=#263640;#EC7875;#61C766;#FDD835;#42A5F5;#BA68C8;#4DD0E1;#bfbaac;#4a697d;#FB8784;#70D675;#FFE744;#51B4FF;#C979D7;#5CDFF0;#fdf6e3
-ColorForeground=#C4C7C5
-ColorBackground=#222D32
-ColorCursor=#afbfbf
-UseDefaultWorkingDir=TRUE
-DefaultWorkingDir=~
 
