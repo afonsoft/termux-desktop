@@ -130,8 +130,6 @@ Here's some shortcut keys you want to use to speed up your work. For more, `Righ
 | `W-1` | Go To Desktop 1 |  |`S-W-1` | Send To Desktop 1 |
 | `W-2` |	Go To Desktop 2 |  |`S-W-2` | Send To Desktop 2 |
 | `W-3` |	Go To Desktop 3 |  |`S-W-3` | Send To Desktop 3 |
-| `W-4` |	Go To Desktop 4 |  |`S-W-4` | Send To Desktop 4 |
-| `W-5` | Go To Desktop 5 |  |`S-W-5` | Send To Desktop 5 |
 ||||||
 | `W-S-Left` | Send To Prev Desktop |  | `W-S-Right` | Send To Next Desktop |
 | `A-Tab` | Next Window (Current Workspace) |  |`W-Tab` | Next Window (All Workspaces) |

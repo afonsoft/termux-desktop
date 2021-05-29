@@ -244,7 +244,6 @@ setup_vnc() {
 		unset SESSION_MANAGER
 		unset DBUS_SESSION_BUS_ADDRESS
 		export XKL_XMODMAP_DISABLE=1
-		xrdb $HOME/.Xresources
 		vncconfig -nowin &
 		# autocutsel -fork
 		# Launch x-session-manager
@@ -270,8 +269,10 @@ setup_theme(){
 	echo -e ${RED}"\n[*] Coping xfce4 xfconf file... "
 	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
 	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
+	echo -e ${RED}"\n[*] download icons file... "
+	{ wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.icons" sh; }
 	cp -rf $(pwd)/music $PREFIX/bin
-	{ gtk-update-icon-cache $HOME/.icons/Flatery-Dark; ln -s $HOME/storage/music $HOME/Music; }
+	{ ln -s $HOME/storage/music $HOME/Music; }
 }
 
 ## Create Launch Script
@@ -333,11 +334,13 @@ install_source() {
 	{ mkdir -p $PREFIX/etc/apt/sources.list.d; }
 	cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list
 	cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list
+	cp -rf $(pwd)/sources/others.list $PREFIX/etc/apt/sources.list.d/others.list
 	echo -e ${CYAN}"\n[*] install source key file... "
 	{ curl https://termux.holehan.org/holehan.key -o holehan.key; apt-key add holehan.key; rm holehan.key; }
 	{ curl wget https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key; apt-key add hax4us.key; rm hax4us.key; }
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; }
+	post_msg
 }
 
 ## Install Termux Desktop
@@ -386,8 +389,10 @@ compile_td() {
 		make install;
 		cd ..;
 	}
-	echo -e ${RED}"\n[*] install catfish..."
-	{ pip install catfish;	}
+	echo -e ${RED}"\n[*] install and update pip..."
+	{ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py; python get-pip.py; python -m pip install --upgrade pip ;}
+	echo -e ${RED}"\n[*] install and update catfish..."
+	{ python -m pip install --upgrade catfish;	}
 }
 
 ## Uninstall Termux Desktop
@@ -431,11 +436,11 @@ uninstall_td() {
 }
 
 ## Main
-if [[ "$1" == "--install" ]]; then
+if [[ "$1" == "--install" || "$1" == "-i" ]]; then
 	install_td
-elif [[ "$1" == "--uninstall" ]]; then
+elif [[ "$1" == "--uninstall" || "$1" == "-u" ]]; then
 	uninstall_td
-elif [[ "$1" == "--compile" ]]; then
+elif [[ "$1" == "--compile" || "$1" == "-c" ]]; then
 	compile_td
 else
 	{ usage; reset_color; exit 0; }
