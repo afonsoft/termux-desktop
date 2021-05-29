@@ -36,11 +36,11 @@ trap exit_on_signal_SIGTERM SIGTERM
 banner() {
 	clear
     cat <<- EOF
-		${RED}┌──────────────────────────────────────────────────────────┐
-		${RED}│${GREEN}░░░▀█▀░█▀▀░█▀▄░█▄█░█░█░█░█░░░█▀▄░█▀▀░█▀▀░█░█░▀█▀░█▀█░█▀█░░${RED}│
-		${RED}│${GREEN}░░░░█░░█▀▀░█▀▄░█░█░█░█░▄▀▄░░░█░█░█▀▀░▀▀█░█▀▄░░█░░█░█░█▀▀░░${RED}│
-		${RED}│${GREEN}░░░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░░░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀░░░░${RED}│
-		${RED}└──────────────────────────────────────────────────────────┘
+		${RED}┌────────────────────────────────────────────────────────┐
+		${RED}│${GREEN}░▀█▀░█▀▀░█▀▄░█▄█░█░█░█░█░░░█▀▄░█▀▀░█▀▀░█░█░▀█▀░█▀█░█▀█░░${RED}│
+		${RED}│${GREEN}░░█░░█▀▀░█▀▄░█░█░█░█░▄▀▄░░░█░█░█▀▀░▀▀█░█▀▄░░█░░█░█░█▀▀░░${RED}│
+		${RED}│${GREEN}░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░░░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀░░░░${RED}│
+		${RED}└────────────────────────────────────────────────────────┘
 		${BLUE}By : Aditya Shakya // @adi1090x
 		${BLUE}Mod : Afonso Nogueira // @afonsoft
 	EOF
@@ -54,11 +54,12 @@ usage() {
 }
 
 ## Update, X11-repo, Program Installation
-_pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon gdk-pixbuf \
-		geany git gtk2 gtk3 htop-legacy imagemagick jq leafpad man mpc mpd mutt ncmpcpp ripgrep \
-		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi librsvg \
+_pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon \
+		geany git gtk2 gtk3 htop-legacy imagemagick jq leafpad man mpc mpd mutt ncmpcpp \
+		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi \
 		startup-notification termux-api thunar tigervnc vim wget xarchiver xbitmaps xcompmgr \
-		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh nodejs yarn build-essential bash-completion)
+		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh \
+		librsvg nodejs yarn build-essential bash-completion gdk-pixbuf ripgrep)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
