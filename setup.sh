@@ -62,7 +62,7 @@ _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-
 		startup-notification termux-api thunar tigervnc vim wget xarchiver xbitmaps xcompmgr \
 		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh \
 		librsvg nodejs yarn build-essential bash-completion gdk-pixbuf ripgrep xfce4-taskmanager \
-		dosbox vim-gtk python-tkinter htop loqui the-powder-toy galculator xorg-xhost mpv ristretto \
+		dosbox vim-gtk python-tkinter loqui the-powder-toy galculator xorg-xhost mpv ristretto \
 		xfce4-whiskermenu-plugin xfce4-clipman-plugin xarchiver geany-plugins mtpaint hexchat \
 		recordmydesktop pip)
 
