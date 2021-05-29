@@ -50,7 +50,9 @@ banner() {
 usage() {
 	banner
 	echo -e ${ORANGE}"\nInstall GUI (xfce4 Desktop) on Termux"
-	echo -e ${ORANGE}"Usages : $(basename $0) --install | --uninstall \n"
+	echo -e ${ORANGE}"Usages : $(basename $0) --install | --uninstall | --compile"
+	echo -e ${ORANGE}"Usages : $(basename $0) --compile for xfce4-dev-tools and intltool\n"
+	echo -e ${ORANGE}"if compile error use compile-install.sh\n"
 }
 
 ## Update, X11-repo, Program Installation
@@ -61,7 +63,8 @@ _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-
 		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh \
 		librsvg nodejs yarn build-essential bash-completion gdk-pixbuf ripgrep xfce4-taskmanager \
 		dosbox vim-gtk python-tkinter htop loqui the-powder-toy galculator xorg-xhost mpv ristretto \
-		xfce4-whiskermenu-plugin xfce4-clipman-plugin xarchiver geany-plugins mtpaint hexchat recordmydesktop)
+		xfce4-whiskermenu-plugin xfce4-clipman-plugin xarchiver geany-plugins mtpaint hexchat \
+		recordmydesktop pip)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
@@ -335,7 +338,7 @@ install_source() {
 	{ curl https://termux.holehan.org/holehan.key -o holehan.key; apt-key add holehan.key; rm holehan.key; }
 	{ curl wget https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key; apt-key add hax4us.key; rm hax4us.key; }
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
-	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; compile-install.sh; }
+	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; }
 }
 
 ## Install Termux Desktop
@@ -351,6 +354,41 @@ install_td() {
 	setup_vnc
 	setup_launcher
 	post_msg
+}
+
+compile_td() {
+	banner
+	echo -e ${RED}"\n[*] Update pkg Termux Desktop..."
+	{ 	reset_color; 
+		pkg autoclean; 
+		pkg update; 
+		pkg upgrade -y; 
+		pkg install perl python libexpat; 
+		cpan install XML::Parser;
+		cpan install XML::LibXML;
+	}
+	echo -e ${RED}"\n[*] Download, Make and install  intltool-0.51.0..."
+	{	wget https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz -q;
+		tar -xvf -xvf intltool-0.51.0.tar.gz;
+		cd intltool-0.51.0/;
+		autoreconf -fi;
+		./configure --prefix=$PREFIX;
+		make;
+		make install;
+		cd ..;
+	}
+	echo -e ${RED}"\n[*] Download, Make and install xfce4-dev-tools-4.16.0..."
+	{	wget https://archive.xfce.org/src/xfce/xfce4-dev-tools/4.16/xfce4-dev-tools-4.16.0.tar.bz2 -q;
+		tar -xvf xfce4-dev-tools-4.16.0.tar.bz2;
+		cd xfce4-dev-tools-4.16.0/;
+		autoreconf -fi;
+		./configure --prefix=$PREFIX;
+		make;
+		make install;
+		cd ..;
+	}
+	echo -e ${RED}"\n[*] install catfish..."
+	{ pip install catfish;	}
 }
 
 ## Uninstall Termux Desktop
@@ -398,6 +436,8 @@ if [[ "$1" == "--install" ]]; then
 	install_td
 elif [[ "$1" == "--uninstall" ]]; then
 	uninstall_td
+elif [[ "$1" == "--compile" ]]; then
+	compile_td
 else
 	{ usage; reset_color; exit 0; }
 fi
