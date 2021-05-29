@@ -50,8 +50,8 @@ banner() {
 usage() {
 	banner
 	echo -e ${ORANGE}"\nInstall GUI (xfce4 Desktop) on Termux"
-	echo -e ${ORANGE}"Usages : $(basename $0) --install | --uninstall | --compile"
-	echo -e ${ORANGE}"Usages : $(basename $0) --compile for xfce4-dev-tools and intltool\n"
+	echo -e ${ORANGE}"Usages: $(basename $0) --install | --uninstall | --compile"
+	echo -e ${ORANGE}"Usages: $(basename $0) --compile for xfce4-dev-tools and intltool"
 	echo -e ${ORANGE}"if compile error use compile-install.sh\n"
 }
 
