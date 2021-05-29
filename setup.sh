@@ -317,7 +317,7 @@ post_msg() {
 		[-] In VNC client, enter ${ORANGE}127.0.0.1:5901 ${GREEN}as Address and Password you created to connect.	
 		[-] To connect via PC over Wifi or Hotspot, use it's IP, ie: ${ORANGE}192.168.43.1:5901 ${GREEN}to connect. Also, use TigerVNC client.	
 		[-] Make sure you enter the correct port. ie: If server is running on ${ORANGE}Display :2 ${GREEN}then port is ${ORANGE}5902 ${GREEN}and so on.
-		  
+		[-] Optional: Install a intltool and xfce4-dev-tools after restart Usages : $(basename $0) --compile or ./compile-install.sh
 	_MSG_
 	{ reset_color; exit 0; }
 }
