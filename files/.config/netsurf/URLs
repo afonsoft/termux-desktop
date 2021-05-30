@@ -1,63 +1,53 @@
 107
-localhost 0 0
-1
-file
-
-/data/data/com.termux/files/home/natural-selection_en.html
-1
-1619722361
-1
-
-‪Natural Selection‬
-wiki.termux.com 0 0
+accounts.google.com 1 1653947838
 1
 https
 
-/wiki/Main_Page
-2
-1619742425
+/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1
+1
+1622411837
 1
 
-Termux Wiki
-www.google.co.uk 0 0
-5
-http
-
-/search?gbv=1&ie=ISO-8859-1&q=termux+wiki&oq=&aqs=
-2
-1619742412
+Gmail
+mail.google.com 0 0
 1
+https
 
-termux wiki - Buscar con Google
-http
-
-/search?q=termi&btnG=Google+Search
+/mail/
 1
-1619741484
-1
-
-termi - Buscar con Google
-http
-
-/search?q=termix&btnG=Google+Search
-1
-1619742400
-1
-
-termix - Buscar con Google
-http
-
-/url?q=https://wiki.termux.com/wiki/Main_Page&sa=U&ved=2ahUKEwi5x9ui16TwAhUOF1kFHR_3DwMQFjAAegQIABAB&usg=AOvVaw2EugeyRVLN0aWSLSaq0ezQ
-1
-1619741497
+1622411836
 0
 
 
+uol.com.br 0 0
+1
 http
 
-/url?q=https://wiki.termux.com/wiki/Main_Page&sa=U&ved=2ahUKEwj9pOHY2qTwAhU4EVkFHQFZBqUQFjAAegQIARAB&usg=AOvVaw0kFjGTWd6Bd10cauFmlPYo
-2
-1619742423
+/
+1
+1622411852
+0
+
+
+www.facebook.com 1 1653947853
+0
+www.gmail.com 0 0
+1
+http
+
+/
+1
+1622411835
+0
+
+
+www.google.com 0 0
+1
+https
+
+/gmail/
+1
+1622411835
 0
 
 
@@ -95,3 +85,13 @@ http
 0
 
 
+www.uol.com.br 0 0
+1
+https
+
+/
+1
+1622411855
+1
+
+UOL - Seu universo online

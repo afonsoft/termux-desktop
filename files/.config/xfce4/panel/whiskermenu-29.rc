@@ -1,5 +1,5 @@
 favorites=xfce4-web-browser.desktop,xfce4-mail-reader.desktop,xfce4-file-manager.desktop,xfce4-terminal-emulator.desktop
-recent=xfce-session-settings.desktop,panel-preferences.desktop
+recent=geany.desktop,loqui.desktop,panel-preferences.desktop,xfce4-mime-settings.desktop,xfce-session-settings.desktop
 button-title=Menu
 button-icon=xfce4-whiskermenu
 button-single-row=false

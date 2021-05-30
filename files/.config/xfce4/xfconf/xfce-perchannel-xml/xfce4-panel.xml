@@ -18,7 +18,6 @@
         <value type="int" value="19"/>
         <value type="int" value="25"/>
         <value type="int" value="24"/>
-        <value type="int" value="26"/>
         <value type="int" value="18"/>
         <value type="int" value="21"/>
         <value type="int" value="20"/>
@@ -44,7 +43,13 @@
         <property name="never-confirm-history-clear" type="bool" value="false"/>
       </property>
     </property>
-    <property name="plugin-14" type="string" value="systray"/>
+    <property name="plugin-14" type="string" value="systray">
+      <property name="names-ordered" type="array">
+        <value type="string" value="geany"/>
+        <value type="string" value="loqui"/>
+        <value type="string" value="uget"/>
+      </property>
+    </property>
     <property name="plugin-15" type="string" value="showdesktop"/>
     <property name="plugin-16" type="string" value="xfce4-clipman-plugin"/>
     <property name="plugin-17" type="string" value="clock"/>
@@ -72,11 +77,6 @@
     <property name="plugin-25" type="string" value="launcher">
       <property name="items" type="array">
         <value type="string" value="16224073893.desktop"/>
-      </property>
-    </property>
-    <property name="plugin-26" type="string" value="launcher">
-      <property name="items" type="array">
-        <value type="string" value="16224074134.desktop"/>
       </property>
     </property>
     <property name="plugin-27" type="string" value="separator">
