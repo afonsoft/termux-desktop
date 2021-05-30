@@ -266,6 +266,7 @@ echo -e ${GREEN}"\n[*] Setup theme file... "
 	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
 	echo -e ${CYAN}"\n[*] Coping xfce4 xfconf file... "
 	cp -rf $(pwd)/backgrounds/* $HOME/Pictures/backgrounds
+	cp -rf $(pwd)/backgrounds/* $PREFIX/usr/share/backgrounds
 	cp -rf $(pwd)/files/.icons/Flatery/* $HOME/.local/share/icons/Flatery
 	cp -rf $(pwd)/files/.icons/Flatery/* $PREFIX/usr/share/icons/Flatery
 	{ 
