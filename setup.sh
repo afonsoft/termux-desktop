@@ -179,26 +179,26 @@ setup_omz() {
 	_EOF_
 	# change shell and reload configs
 	{ chsh -s zsh; termux-reload-settings; termux-setup-storage; }
-	if [[ ! -d "$HOME/storage/Downloads" ]]; then
-		mkdir $HOME/storage/Downloads 
+	if [[ ! -d "$HOME/Downloads" ]]; then
+		mkdir $HOME/Downloads 
 	fi
-	if [[ ! -d "$HOME/storage/Templates" ]]; then
-		mkdir $HOME/storage/Templates 
+	if [[ ! -d "$HOME/Templates" ]]; then
+		mkdir $HOME/Templates 
 	fi
-	if [[ ! -d "$HOME/storage/Public" ]]; then
-		mkdir $HOME/storage/Public
+	if [[ ! -d "$HOME/Public" ]]; then
+		mkdir $HOME/Public
 	fi
-	if [[ ! -d "$HOME/storage/Documents" ]]; then
-		mkdir $HOME/storage/Documents 
+	if [[ ! -d "$HOME/Documents" ]]; then
+		mkdir $HOME/Documents 
 	fi
-	if [[ ! -d "$HOME/storage/Pictures" ]]; then
-		mkdir $HOME/storage/Pictures 
+	if [[ ! -d "$HOME/Pictures" ]]; then
+		mkdir $HOME/Pictures 
 	fi
-	if [[ ! -d "$HOME/storage/Video" ]]; then
-		mkdir $HOME/storage/Video 
+	if [[ ! -d "$HOME/Video" ]]; then
+		mkdir $HOME/Video 
 	fi
-	if [[ ! -d "$HOME/storage/Pictures/backgrounds" ]]; then
-		mkdir $HOME/storage/Pictures/backgrounds
+	if [[ ! -d "$HOME/Pictures/backgrounds" ]]; then
+		mkdir $HOME/Pictures/backgrounds
 	fi
 }
 
@@ -243,8 +243,8 @@ setup_vnc() {
 		unset SESSION_MANAGER
 		unset DBUS_SESSION_BUS_ADDRESS
 		export XKL_XMODMAP_DISABLE=1
-		vncconfig -nowin &
-		# autocutsel -fork
+		xsetroot -solid grey
+		vncconfig -iconic &
 		# Launch x-session-manager
 		startxfce4 &
 		# Launch xhost service to run proot-distro apps
@@ -265,14 +265,12 @@ echo -e ${GREEN}"\n[*] Setup theme file... "
 	echo -e ${CYAN}"\n[*] Coping colors file... "
 	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
 	echo -e ${CYAN}"\n[*] Coping xfce4 xfconf file... "
-	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4
-	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share
-	cp -rf $(pwd)/backgrounds $HOME/storage/Pictures/
-	cp -rf $(pwd)/files/.icons/Flatery $HOME/.local/share/icons
-	cp -rf $(pwd)/files/.icons/Flatery $PREFIX/usr/share/icons
+	cp -rf $(pwd)/backgrounds $HOME/Pictures/
+	cp -rf $(pwd)/files/.icons/Flatery $HOME/.local/share/icons/Flatery
+	cp -rf $(pwd)/files/.icons/Flatery $PREFIX/usr/share/icons/Flatery
 	{ 
 		termux-reload-settings; 
-		xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/image-path --set $HOME/storage/Pictures/backgrounds/Mousy_X78_2K_W.png;
+		xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/image-path --set $HOME/Pictures/backgrounds/Mousy_X78_2K_W.png;
 	}
 }
 
