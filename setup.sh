@@ -59,11 +59,11 @@ usage() {
 _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-utils fsmon \
 		geany git gtk2 gtk3 htop-legacy imagemagick jq leafpad man mpc mpd mutt ncmpcpp \
 		ncurses-utils neofetch netsurf obconf xfce4 openssl-tool polybar ranger rofi \
-		startup-notification termux-api thunar tigervnc vim wget xarchiver xbitmaps xcompmgr \
+		startup-notification termux-api thunar tigervnc vim wget xFlateryhiver xbitmaps xcompmgr \
 		xfce4-settings xfce4-terminal xmlstarlet xorg-font-util xorg-xrdb zsh \
 		librsvg nodejs yarn build-essential bash-completion gdk-pixbuf ripgrep xfce4-taskmanager \
 		dosbox vim-gtk python-tkinter loqui the-powder-toy galculator xorg-xhost mpv ristretto \
-		xfce4-whiskermenu-plugin xfce4-clipman-plugin xarchiver geany-plugins mtpaint hexchat \
+		xfce4-whiskermenu-plugin xfce4-clipman-plugin xFlateryhiver geany-plugins mtpaint hexchat \
 		recordmydesktop unstable-repo)
 
 setup_base() {
@@ -158,38 +158,17 @@ setup_omz() {
 
 		# SSH Server Connections
 
-		# linux (Arch)
-		alias arch='ssh UNAME@IP -i ~/.ssh/id_rsa.DEVICE'
+		# linux (Flateryh)
+		alias Flateryh='ssh UNAME@IP -i ~/.ssh/id_rsa.DEVICE'
 
-		# linux sftp (Arch)
-		alias archfs='sftp -i ~/.ssh/id_rsa.DEVICE UNAME@IP'
+		# linux sftp (Flateryh)
+		alias Flateryhfs='sftp -i ~/.ssh/id_rsa.DEVICE UNAME@IP'
 	_EOF_
 
 	# configuring termux
 	echo -e ${CYAN}"\n[*] Configuring Termux..."
 	if [[ ! -d "$HOME/.termux" ]]; then
 		mkdir $HOME/.termux
-	fi
-	if [[ ! -d "$HOME/Downloads" ]]; then
-		mkdir $HOME/Downloads 
-	fi
-	if [[ ! -d "$HOME/Templates" ]]; then
-		mkdir $HOME/Templates 
-	fi
-	if [[ ! -d "$HOME/Public" ]]; then
-		mkdir $HOME/Public
-	fi
-	if [[ ! -d "$HOME/Documents" ]]; then
-		mkdir $HOME/Documents 
-	fi
-	if [[ ! -d "$HOME/Pictures" ]]; then
-		mkdir $HOME/Pictures 
-	fi
-	if [[ ! -d "$HOME/Video" ]]; then
-		mkdir $HOME/Video 
-	fi
-	if [[ ! -d "$HOME/backgrounds" ]]; then
-		mkdir $HOME/backgrounds 
 	fi
 	# button config
 	cat > $HOME/.termux/termux.properties <<- _EOF_
@@ -200,6 +179,27 @@ setup_omz() {
 	_EOF_
 	# change shell and reload configs
 	{ chsh -s zsh; termux-reload-settings; termux-setup-storage; }
+	if [[ ! -d "$HOME/storage/Downloads" ]]; then
+		mkdir $HOME/storage/Downloads 
+	fi
+	if [[ ! -d "$HOME/storage/Templates" ]]; then
+		mkdir $HOME/storage/Templates 
+	fi
+	if [[ ! -d "$HOME/storage/Public" ]]; then
+		mkdir $HOME/storage/Public
+	fi
+	if [[ ! -d "$HOME/storage/Documents" ]]; then
+		mkdir $HOME/storage/Documents 
+	fi
+	if [[ ! -d "$HOME/storage/Pictures" ]]; then
+		mkdir $HOME/storage/Pictures 
+	fi
+	if [[ ! -d "$HOME/storage/Video" ]]; then
+		mkdir $HOME/storage/Video 
+	fi
+	if [[ ! -d "$HOME/storage/Pictures/backgrounds" ]]; then
+		mkdir $HOME/storage/Pictures/backgrounds
+	fi
 }
 
 ## Configuration
@@ -265,12 +265,14 @@ echo -e ${GREEN}"\n[*] Setup theme file... "
 	echo -e ${CYAN}"\n[*] Coping colors file... "
 	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
 	echo -e ${CYAN}"\n[*] Coping xfce4 xfconf file... "
-	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
-	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
-	cp -rf $(pwd)/backgrounds $HOME/backgrounds
+	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4
+	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share
+	cp -rf $(pwd)/backgrounds $HOME/storage/Pictures/
+	cp -rf $(pwd)/files/.icons/Flatery $HOME/.local/share/icons
+	cp -rf $(pwd)/files/.icons/Flatery $PREFIX/usr/share/icons
 	{ 
 		termux-reload-settings; 
-		xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/image-path --set $HOME/backgrounds/Mousy_X78_2K_W.png;
+		xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/image-path --set $HOME/storage/Pictures/backgrounds/Mousy_X78_2K_W.png;
 	}
 }
 
@@ -382,7 +384,7 @@ compile_td() {
 		cd ..;
 	}
 	echo -e ${CYAN}"\n[*] Download, Make and install xfce4-dev-tools-4.16.0..."
-	{	wget https://archive.xfce.org/src/xfce/xfce4-dev-tools/4.16/xfce4-dev-tools-4.16.0.tar.bz2 -q;
+	{	wget https://Flateryhive.xfce.org/src/xfce/xfce4-dev-tools/4.16/xfce4-dev-tools-4.16.0.tar.bz2 -q;
 		tar -xvf xfce4-dev-tools-4.16.0.tar.bz2;
 		cd xfce4-dev-tools-4.16.0/;
 		autoreconf -fi;
