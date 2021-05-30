@@ -101,7 +101,7 @@ install_zsh () {
 ## Setup OMZ and Termux Configs
 setup_omz() {
 	# backup previous termux and omz files
-	echo -e ${RED}"[*] Setting up OMZ and termux configs..."
+	echo -e ${GREEN}"[*] Setting up OMZ and termux configs..."
 	omz_files=(.oh-my-zsh .termux .zshrc)
 	for file in "${omz_files[@]}"; do
 		echo -e ${CYAN}"\n[*] Backing up $file..."
@@ -188,10 +188,9 @@ setup_omz() {
 	if [[ ! -d "$HOME/Video" ]]; then
 		mkdir $HOME/Video 
 	fi
-	# copy font
-	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
-	# color-scheme
-	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
+	if [[ ! -d "$HOME/backgrounds" ]]; then
+		mkdir $HOME/backgrounds 
+	fi
 	# button config
 	cat > $HOME/.termux/termux.properties <<- _EOF_
 		extra-keys = [ \\
@@ -207,7 +206,7 @@ setup_omz() {
 setup_config() {
 	# backup
 	configs=($(ls -A $(pwd)/files))
-	echo -e ${RED}"\n[*] Backing up your files and dirs... "
+	echo -e ${GREEN}"\n[*] Backing up your files and dirs... "
 	for file in "${configs[@]}"; do
 		echo -e ${CYAN}"\n[*] Backing up $file..."
 		if [[ -f "$HOME/$file" || -d "$HOME/$file" ]]; then
@@ -218,7 +217,7 @@ setup_config() {
 	done
 	
 	# Copy config files
-	echo -e ${RED}"\n[*] Coping config files... "
+	echo -e ${GREEN}"\n[*] Coping config files... "
 	for _config in "${configs[@]}"; do
 		echo -e ${CYAN}"\n[*] Coping $_config..."
 		{ reset_color; cp -rf $(pwd)/files/$_config $HOME; }
@@ -260,20 +259,19 @@ setup_vnc() {
 
 ## Copy file of config
 setup_theme(){
-echo -e ${RED}"\n[*] Setup theme file... "
+echo -e ${GREEN}"\n[*] Setup theme file... "
 	echo -e ${CYAN}"\n[*] Coping font file... "
 	cp $(pwd)/files/.fonts/icons/font.ttf $HOME/.termux/font.ttf
 	echo -e ${CYAN}"\n[*] Coping colors file... "
 	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
-	echo -e ${CYAN}"\n[*] Coping icons Flatery-Dark file... "
-	cp -rf $(pwd)/files/.icons/Flatery-Dark $PREFIX/share/icons/Flatery-Dark
 	echo -e ${CYAN}"\n[*] Coping xfce4 xfconf file... "
 	cp -rf $(pwd)/files/.config/xfce4/xfconf $PREFIX/etc/xdg/xfce4/xfconf
 	cp -rf $(pwd)/files/.config/xfce4 $HOME/.local/share/xfce4
-	echo -e ${CYAN}"\n[*] download icons file... "
-	{ wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.icons" sh; }
-	cp -rf $(pwd)/music $PREFIX/bin
-	{ ln -s $HOME/storage/music $HOME/Music; }
+	cp -rf $(pwd)/backgrounds $HOME/backgrounds
+	{ 
+		termux-reload-settings; 
+		xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/image-path --set $HOME/backgrounds/Mousy_X78_2K_W.png;
+	}
 }
 
 ## Create Launch Script
@@ -282,7 +280,7 @@ setup_launcher() {
 	if [[ -f "$file" ]]; then
 		rm -rf "$file"
 	fi
-	echo -e ${RED}"\n[*] Creating Launcher Script... \n"
+	echo -e ${GREEN}"\n[*] Creating Launcher Script... \n"
 	{ reset_color; touch $file; chmod +x $file; }
 	cat > $file <<- _EOF_
 		#!/data/data/com.termux/files/usr/bin/bash
@@ -325,21 +323,22 @@ post_msg() {
 
 ## Install adb
 install_adb() {
-	echo -e ${RED}"\n[*] install ADB file... "
+	echo -e ${GREEN}"\n[*] install ADB file..."
+	echo -e ${CYAN}"\n[*] Download from github... "
 	{ curl https://github.com/MasterDevX/Termux-ADB/raw/master/InstallTools.sh -o InstallTools.sh; bash InstallTools.sh; rm InstallTools.sh;}
 }
 
 ## Install source
 install_source() {	
-	echo -e ${RED}"\n[*] Configure sources... "
+	echo -e ${GREEN}"\n[*] Configure sources... "
 	echo -e ${CYAN}"\n[*] Coping sources file... "
 	{ mkdir -p $PREFIX/etc/apt/sources.list.d; }
-##	cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list
-##	cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list
-##	cp -rf $(pwd)/sources/others.list $PREFIX/etc/apt/sources.list.d/others.list
+	cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list
+	cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list
+	cp -rf $(pwd)/sources/others.list $PREFIX/etc/apt/sources.list.d/others.list
 	echo -e ${CYAN}"\n[*] install source key file... "
 	{ curl https://termux.holehan.org/holehan.key -o holehan.key; apt-key add holehan.key; rm holehan.key; }
-	{ curl wget https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key; apt-key add hax4us.key; rm hax4us.key; }
+	{ curl https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key; apt-key add hax4us.key; rm hax4us.key; }
 	{ apt-key adv --keyserver pgp.mit.edu --recv A46BE53C; }
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; apt update; pkg update; pkg upgrade -y; }
@@ -363,7 +362,7 @@ install_td() {
 compile_td() {
 	banner
 	echo -e ${RED}"\n[*] Compile config..."
-	echo -e ${GREEN}"\n[*] Update pkg Termux Desktop..."
+	echo -e ${CYAN}"\n[*] Update pkg Termux Desktop..."
 	{ 	reset_color; 
 		pkg autoclean; 
 		pkg update; 
