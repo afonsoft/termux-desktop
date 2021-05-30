@@ -265,9 +265,9 @@ echo -e ${GREEN}"\n[*] Setup theme file... "
 	echo -e ${CYAN}"\n[*] Coping colors file... "
 	cp $(pwd)/colors.properties $HOME/.termux/colors.properties
 	echo -e ${CYAN}"\n[*] Coping xfce4 xfconf file... "
-	cp -rf $(pwd)/backgrounds $HOME/Pictures/
-	cp -rf $(pwd)/files/.icons/Flatery $HOME/.local/share/icons/Flatery
-	cp -rf $(pwd)/files/.icons/Flatery $PREFIX/usr/share/icons/Flatery
+	cp -rf $(pwd)/backgrounds/* $HOME/Pictures/backgrounds
+	cp -rf $(pwd)/files/.icons/Flatery/* $HOME/.local/share/icons/Flatery
+	cp -rf $(pwd)/files/.icons/Flatery/* $PREFIX/usr/share/icons/Flatery
 	{ 
 		termux-reload-settings; 
 		xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/image-path --set $HOME/Pictures/backgrounds/Mousy_X78_2K_W.png;
