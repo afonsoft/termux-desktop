@@ -64,14 +64,20 @@ _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-
 		librsvg nodejs yarn build-essential bash-completion gdk-pixbuf ripgrep xfce4-taskmanager \
 		dosbox vim-gtk python-tkinter loqui the-powder-toy galculator xorg-xhost mpv ristretto \
 		xfce4-whiskermenu-plugin xfce4-clipman-plugin xarchiver geany-plugins mtpaint hexchat \
-		recordmydesktop unstable-repo uget neovim)
+		recordmydesktop uget neovim perl ruby rust texlive-installer)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; }
-	echo -e ${CYAN}"\n[*] Enabling Termux X11-repo... \n"
-	{ reset_color; pkg install -y x11-repo; }
+	echo -e ${CYAN}"\n[*] Enabling Termux X11-repo, science-repo, etc... \n"
+	{ 
+		reset_color; 
+		pkg install -y x11-repo; 
+		pkg install -y unstable-repo; 
+		pkg install -y game-repo;
+		pkg install -y science-repo;
+	}
 	echo -e ${CYAN}"\n[*] Installing required programs... \n"
 	for package in "${_pkgs[@]}"; do
 		{ reset_color; pkg install -y "$package"; }
@@ -81,8 +87,10 @@ setup_base() {
 			echo -e ${GREEN}"\n[*] Package $package installed successfully.\n"
 			continue
 		else
-			echo -e ${MAGENTA}"\n[!] Error installing $package, Terminating...\n"
-			{ reset_color;  pkg autoclean; pkg update; pkg upgrade -y; exit 1; }
+			{ pkg autoclean; pkg update; pkg upgrade -y; }
+			echo -e ${RED}"\n[!] Error installing $package, Terminating...\n"
+			echo -e ${MAGENTA}"\n[!] Run pkg upgrade -y and ./setup.sh --install agian \n"
+			{ reset_color; exit 1; }
 		fi
 	done
 	reset_color
@@ -311,6 +319,8 @@ setup_launcher() {
 
 ## Finish Installation
 post_msg() {
+echo -e ${GREEN}"\n[*] ${RED}Termux Desktop ${GREEN}Clean tempory files....\n"
+	{ git clean -d  -fx; }
 	echo -e ${GREEN}"\n[*] ${RED}Termux Desktop ${GREEN}Installed Successfully.\n"
 	cat <<- _MSG_
 		[-] Restart termux and enter ${ORANGE}startdesktop ${GREEN}command to start the VNC server.
@@ -343,6 +353,8 @@ install_source() {
 	{ apt-key adv --keyserver pgp.mit.edu --recv A46BE53C; }
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; apt update; pkg update; pkg upgrade -y; }
+	echo -e ${CYAN}"\n[*] Updating storage access... \n"
+	{ termux-setup-storage; }
 }
 
 ## Install Termux Desktop
