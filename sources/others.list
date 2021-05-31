@@ -1,3 +1,4 @@
 # deb http://ftp.debian.org/debian/ stable main contrib non-free
-# deb http://ftp.de.debian.org/debian jessie main
+# deb http://ftp.br.debian.org/debian sid main 
+# deb http://ftp.br.debian.org/debian jessie main
 # deb [trusted=yes] https://grimler.se root stable
