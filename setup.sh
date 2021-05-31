@@ -353,6 +353,8 @@ install_source() {
 	{ apt-key adv --keyserver pgp.mit.edu --recv A46BE53C; }
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; apt update; pkg update; pkg upgrade -y; }
+	echo -e ${CYAN}"\n[*] Updating storage access... \n"
+	{ termux-setup-storage; }
 }
 
 ## Install Termux Desktop
