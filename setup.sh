@@ -64,14 +64,20 @@ _pkgs=(bc bmon calc calcurse curl dbus desktop-file-utils elinks feh fontconfig-
 		librsvg nodejs yarn build-essential bash-completion gdk-pixbuf ripgrep xfce4-taskmanager \
 		dosbox vim-gtk python-tkinter loqui the-powder-toy galculator xorg-xhost mpv ristretto \
 		xfce4-whiskermenu-plugin xfce4-clipman-plugin xarchiver geany-plugins mtpaint hexchat \
-		recordmydesktop unstable-repo uget neovim)
+		recordmydesktop uget neovim perl ruby rust texlive-installer)
 
 setup_base() {
 	echo -e ${RED}"\n[*] Installing Termux Desktop..."
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; pkg autoclean; pkg update; pkg upgrade -y; }
-	echo -e ${CYAN}"\n[*] Enabling Termux X11-repo... \n"
-	{ reset_color; pkg install -y x11-repo; }
+	echo -e ${CYAN}"\n[*] Enabling Termux X11-repo, science-repo, etc... \n"
+	{ 
+		reset_color; 
+		pkg install -y x11-repo; 
+		pkg install -y unstable-repo; 
+		pkg install -y game-repo;
+		pkg install -y science-repo;
+	}
 	echo -e ${CYAN}"\n[*] Installing required programs... \n"
 	for package in "${_pkgs[@]}"; do
 		{ reset_color; pkg install -y "$package"; }
