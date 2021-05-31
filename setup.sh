@@ -81,8 +81,10 @@ setup_base() {
 			echo -e ${GREEN}"\n[*] Package $package installed successfully.\n"
 			continue
 		else
-			echo -e ${MAGENTA}"\n[!] Error installing $package, Terminating...\n"
-			{ reset_color;  pkg autoclean; pkg update; pkg upgrade -y; exit 1; }
+			{ pkg autoclean; pkg update; pkg upgrade -y; }
+			echo -e ${RED}"\n[!] Error installing $package, Terminating...\n"
+			echo -e ${MAGENTA}"\n[!] Run pkg upgrade -y and ./setup.sh --install agian \n"
+			{ reset_color; exit 1; }
 		fi
 	done
 	reset_color
@@ -311,6 +313,8 @@ setup_launcher() {
 
 ## Finish Installation
 post_msg() {
+echo -e ${GREEN}"\n[*] ${RED}Termux Desktop ${GREEN}Clean tempory files....\n"
+	{ git clean -d  -fx; }
 	echo -e ${GREEN}"\n[*] ${RED}Termux Desktop ${GREEN}Installed Successfully.\n"
 	cat <<- _MSG_
 		[-] Restart termux and enter ${ORANGE}startdesktop ${GREEN}command to start the VNC server.
