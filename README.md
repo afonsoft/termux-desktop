@@ -1,4 +1,4 @@
-TEMUX DESKTOP xfce4 <br />
+TEMUX DESKTOP XFCE4 Native <br />
 
 Alright, Lets just get this straight, these are just some **dotfiles** & **scripts**, which will help you to setup a graphical environment in **termux**. I've tried to make it *as easy as possible* to setup a beautiful ***linux desktop on your android device*** with termux, So follow the steps and you'll end up making it look like this - <br />
 
@@ -11,10 +11,10 @@ Termux is an *Android terminal emulator* and **Linux environment** app that work
 
 ### How To install termux?
 
-You can install termux form google play store or from f-droid. <br />
+You can install termux form f-droid. <br />
 
-- Get it on [Google Play](https://play.google.com/store/apps/details?id=com.termux)
-- Download from [F-Droid](https://f-droid.org/packages/com.termux/) <br />
+- Download [Termux](https://f-droid.org/packages/com.termux/) <br />
+- Download [Termux:API](https://f-droid.org/packages/com.termux.api/) <br />
 
 More information about installation is [here](https://wiki.termux.com/wiki/Main_Page) <br />
 
@@ -24,7 +24,7 @@ Install `Termux` & `Termux:API` on your phone. It's recommended to install *Term
 
 > This setup is created and tested on :
 >
-> Device - **Redmi Note 9 Pro** <br />
+> Device - **Moto G9 Play** <br />
 > Android - **Android 10 (Q)** <br />
 > CPU Type - **aarch64**
 
@@ -34,7 +34,7 @@ After installing both applications above, open `Termux` and follow the steps bel
 
 - Update termux packages and install `git`
 ```
-pkg upgrade && pkg install git
+pkg upgrade && pkg install -y git
 ```
 
 - Clone this repository
@@ -48,6 +48,8 @@ git clone --depth=1 https://github.com/afonsoft/termux-desktop.git
 ```
 cd termux-desktop
 chmod +x setup.sh
+```
+```
 ./setup.sh --install
 ```
 
@@ -119,8 +121,6 @@ Termux
 ```
 Now launch it. You will be prompted for `password` that you entered during installation. After entering password, you'll be headed directly to this desktop - <br />
 
-![desktop](./previews/desk_1.png) <br />
-
 ### Keybindings
 
 Here's some shortcut keys you want to use to speed up your work. For more, `Right click on desktop > Keybinds`
@@ -149,12 +149,6 @@ Here's some shortcut keys you want to use to speed up your work. For more, `Righ
 | `W-b` | Battery Menu |  | `W-n` | Network Menu |
 | `C-A-v` | Vim |  | `C-A-r` | Ranger |
 | `C-A-h` | Htop |  | `C-A-n` | Nano |
-
-### Additional Tools
-
-You can install additional tools for termux, to make it visually look good.
-1. [Oh my zsh](https://github.com/adi1090x/termux-omz), Setup zsh with [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework. (Already Added in this setup)
-2. [Termux style](https://github.com/adi1090x/termux-style), Change color and fonts in termux.
 
 ### FYI
 
