@@ -4,6 +4,7 @@
 ## Mail    : adi1090x@gmail.com
 ## Github  : @adi1090x
 ## Twitter : @adi1090x
+## Mod	   : @Afonsoft
 
 ## Termux Desktop : Setup GUI in Termux 
 
@@ -52,6 +53,7 @@ usage() {
 	echo -e ${ORANGE}"\nInstall GUI (xfce4 Desktop) on Termux"
 	echo -e ${ORANGE}"Usages: $(basename $0) --install | --uninstall | --compile"
 	echo -e ${ORANGE}"Usages: $(basename $0) --compile for xfce4-dev-tools and intltool"
+	echo -e ${ORANGE}"Usages: $(basename $0) --tools for Visual Studio Code and Firefox"
 	echo -e ${ORANGE}"if compile error use compile-install.sh\n"
 }
 
@@ -339,6 +341,30 @@ install_adb() {
 	{ curl https://github.com/MasterDevX/Termux-ADB/raw/master/InstallTools.sh -o InstallTools.sh; bash InstallTools.sh; rm InstallTools.sh;}
 }
 
+## Install Visual Code
+install_vsc() {
+	echo -e ${GREEN}"\n[*] install Visual Sutdio Code..."
+	{
+	  wget https://packages.microsoft.com/keys/microsoft.asc -q;
+	  wget https://az764295.vo.msecnd.net/stable/b4c1bd0a9b03c749ea011b06c6d2676c8091a70c/code_1.57.0-1623259113_arm64.deb -q;
+	  cp -rf microsoft.asc $PREFIX/etc/apt/sources.list.d/microsoft.asc;
+	  rm -rf microsoft.asc;
+	  echo "deb [arch=arm64,armhf] https://packages.microsoft.com/repos/code stable main" > $PREFIX/etc/apt/sources.list.d/vscode.list;
+	  pkg update;
+          pkg upgrade -y;
+          pkg install code;
+          dpkg -i code_1.57.0-1623259113_arm64.deb;
+	 }
+}
+
+install_firefox() {
+	echo -e ${GREEN}"\n[*] install Firefox..."
+	{
+	 wget http://ftp.br.debian.org/debian/pool/main/f/firefox/firefox_88.0.1-1_armhf.deb -q;
+	 dpkg -i firefox_88.0.1-1_armhf.deb;
+	}
+}
+
 ## Install source
 install_source() {	
 	echo -e ${GREEN}"\n[*] Configure sources... "
@@ -366,9 +392,15 @@ install_td() {
 	setup_config
 	setup_theme
 	install_adb
-	install_source
 	setup_vnc
 	setup_launcher
+	post_msg
+}
+
+install_tools_td() {
+	install_source
+	install_vsc
+	install_firefox
 	post_msg
 }
 
@@ -453,8 +485,10 @@ uninstall_td() {
 ## Main
 if [[ "$1" == "--install" || "$1" == "-i" ]]; then
 	install_td
-elif [[ "$1" == "--uninstall" || "$1" == "-u" ]]; then
+elif [[ "$1" == "--uninstall" ]]; then
 	uninstall_td
+elif [[ "$1" == "--tools" ]]; then
+	install_tools_td
 elif [[ "$1" == "--compile" || "$1" == "-c" ]]; then
 	compile_td
 else
