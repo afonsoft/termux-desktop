@@ -359,6 +359,7 @@ install_firefox() {
 	{
 	 wget http://mirror.archlinuxarm.org/aarch64/extra/firefox-89.0-1-aarch64.pkg.tar.xz -q;
 	 tar -xvf firefox-89.0-1-aarch64.pkg.tar.xz;
+	 cp -rf usr/ $PREFIX/;
 	}
 }
 
