@@ -350,7 +350,7 @@ install_vsc() {
 	  gpg --dearmor microsoft.asc > packages.microsoft.gpg;
 	  cp -rf packages.microsoft.gpg $PREFIX/etc/apt/trusted.gpg.d/
 	  rm -rf microsoft.asc;
-	  echo "deb [arch=arm64,armhf] https://packages.microsoft.com/repos/code stable main" > $PREFIX/etc/apt/sources.list.d/vscode.list;
+	  echo "deb https://packages.microsoft.com/repos/code stable main" > $PREFIX/etc/apt/sources.list.d/vscode.list;
 	}
 }
 
@@ -359,12 +359,6 @@ install_firefox() {
 	{
 	 wget http://mirror.archlinuxarm.org/aarch64/extra/firefox-89.0-1-aarch64.pkg.tar.xz -q;
 	 tar -xvf firefox-89.0-1-aarch64.pkg.tar.xz;
-	 cd intltool-0.51.0/;
-	 autoreconf -fi;
-	 ./configure --prefix=$PREFIX;
-	 make;
-	 make install;
-	 cd ..;
 	}
 }
 
