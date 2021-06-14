@@ -343,44 +343,60 @@ install_adb() {
 
 ## Install Visual Code
 install_vsc() {
-	echo -e ${GREEN}"\n[*] install Visual Sutdio Code..."
+	echo -e ${GREEN}"\n[*] install Visual Sutdio Code Source..."
 	{
 	  wget https://packages.microsoft.com/keys/microsoft.asc -q;
-	  wget https://az764295.vo.msecnd.net/stable/b4c1bd0a9b03c749ea011b06c6d2676c8091a70c/code_1.57.0-1623259113_arm64.deb -q;
-	  cp -rf microsoft.asc $PREFIX/etc/apt/sources.list.d/microsoft.asc;
+	  apt-key add microsoft.asc;
+	  gpg --dearmor microsoft.asc > packages.microsoft.gpg;
+	  cp -rf packages.microsoft.gpg $PREFIX/etc/apt/trusted.gpg.d/
 	  rm -rf microsoft.asc;
 	  echo "deb [arch=arm64,armhf] https://packages.microsoft.com/repos/code stable main" > $PREFIX/etc/apt/sources.list.d/vscode.list;
-	  pkg update;
-          pkg upgrade -y;
-          pkg install code;
-          dpkg -i code_1.57.0-1623259113_arm64.deb;
-	 }
+	}
 }
 
 install_firefox() {
-	echo -e ${GREEN}"\n[*] install Firefox..."
+	echo -e ${GREEN}"\n[*] install Firefox (aarch64)..."
 	{
-	 wget http://ftp.br.debian.org/debian/pool/main/f/firefox/firefox_88.0.1-1_armhf.deb -q;
-	 dpkg -i firefox_88.0.1-1_armhf.deb;
+	 wget http://mirror.archlinuxarm.org/aarch64/extra/firefox-89.0-1-aarch64.pkg.tar.xz -q;
+	 tar -xvf firefox-89.0-1-aarch64.pkg.tar.xz;
+	 cd intltool-0.51.0/;
+	 autoreconf -fi;
+	 ./configure --prefix=$PREFIX;
+	 make;
+	 make install;
+	 cd ..;
 	}
 }
 
 ## Install source
 install_source() {	
 	echo -e ${GREEN}"\n[*] Configure sources... "
-	echo -e ${CYAN}"\n[*] Coping sources file... "
-	{ mkdir -p $PREFIX/etc/apt/sources.list.d; }
-	cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list
-	cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list
-	cp -rf $(pwd)/sources/others.list $PREFIX/etc/apt/sources.list.d/others.list
 	echo -e ${CYAN}"\n[*] install source key file... "
-	{ curl https://termux.holehan.org/holehan.key -o holehan.key; apt-key add holehan.key; rm holehan.key; }
-	{ curl https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key; apt-key add hax4us.key; rm hax4us.key; }
-	{ apt-key adv --keyserver pgp.mit.edu --recv A46BE53C; }
+	{
+	  curl https://termux.holehan.org/holehan.key -o holehan.key;
+	  curl https://hax4us.github.io/termux-x/hax4us.key -o hax4us.key;
+	  curl https://dl.yarnpkg.com/debian/pubkey.gpg  -o pubkey.gpg;
+	  curl https://packagecloud.io/install/repositories/swift-arm/vscode/script.deb.sh -o script.deb.sh;
+	  apt-key add holehan.key;
+	  apt-key add hax4us.key;
+	  apt-key add pubkey.gpg;
+	  rm pubkey.gpg;
+	  rm hax4us.key;
+	  rm holehan.key;
+	  apt-key adv --keyserver pgp.mit.edu --recv A46BE53C;
+	  apt-key adv --keyserver hkp://keys.gnupg.net --recv-keys 7D8D0BF6;
+	  chmod +x script.deb.sh;
+	}
+	echo -e ${CYAN}"\n[*] Coping sources file... "
+	{
+	  mkdir -p $PREFIX/etc/apt/sources.list.d;
+	  cp -rf $(pwd)/sources/holehan.list $PREFIX/etc/apt/sources.list.d/holehan.list;
+	  cp -rf $(pwd)/sources/hax4us_x11_stable.list $PREFIX/etc/apt/sources.list.d/hax4us_x11_stable.list;
+	  cp -rf $(pwd)/sources/others.list $PREFIX/etc/apt/sources.list.d/others.list;
+	  bash script.deb.sh;
+	}
 	echo -e ${CYAN}"\n[*] Updating Termux Base... \n"
 	{ reset_color; apt update; pkg update; pkg upgrade -y; }
-	echo -e ${CYAN}"\n[*] Updating storage access... \n"
-	{ termux-setup-storage; }
 }
 
 ## Install Termux Desktop
@@ -418,7 +434,7 @@ compile_td() {
 	}
 	echo -e ${CYAN}"\n[*] Download, Make and install  intltool-0.51.0..."
 	{	wget https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz -q;
-		tar -xvf -xvf intltool-0.51.0.tar.gz;
+		tar -xvf intltool-0.51.0.tar.gz;
 		cd intltool-0.51.0/;
 		autoreconf -fi;
 		./configure --prefix=$PREFIX;

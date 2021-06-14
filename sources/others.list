@@ -1,2 +1,2 @@
-deb http://ftp.debian.org/debian/ stable main contrib non-free
+deb https://dl.yarnpkg.com/debian/ stable main
 deb [trusted=yes] https://grimler.se root stable
