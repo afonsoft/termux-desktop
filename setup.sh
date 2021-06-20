@@ -412,7 +412,7 @@ install_tools_td() {
 	install_source
 	install_vsc
 	install_firefox
-	post_msg
+##	post_msg
 }
 
 compile_td() {
